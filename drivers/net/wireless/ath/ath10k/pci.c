@@ -2627,6 +2627,11 @@ static int ath10k_pci_probe(struct pci_dev *pdev,
 	ar_pci->dev = &pdev->dev;
 	ar_pci->ar = ar;
 
+	if (pdev->subsystem_vendor || pdev->subsystem_device)
+		scnprintf(ar->spec_board_id, sizeof(ar->spec_board_id),
+			  "0x%04x:0x%04x",
+			  pdev->subsystem_vendor, pdev->subsystem_device);
+
 	spin_lock_init(&ar_pci->ce_lock);
 	setup_timer(&ar_pci->rx_post_retry, ath10k_pci_rx_replenish_retry,
 		    (unsigned long)ar);
