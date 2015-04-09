@@ -2365,6 +2365,9 @@ static int ath10k_peer_assoc_prepare(struct ath10k *ar,
 	ath10k_peer_assoc_h_qos(ar, vif, sta, arg);
 	ath10k_peer_assoc_h_phymode(ar, vif, sta, arg);
 
+	if (sta->mfp)
+		arg->peer_flags |= ar->wmi.peer_flags->pmf;
+
 	return 0;
 }
 
